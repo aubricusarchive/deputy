@@ -42,12 +42,16 @@
 * Optipng(c)
 * JpegTran(c)
 * Closure Compiler(Java)
+* Docco (node, documentation)
 
 ## Python Setup
 * cliff (cli)
 * pdb++ (debugger)
 * pdbSublimeTextSupport (pdb plugin for sublime)
 * pycmd (code analytics)
+* sphinx (documentation) http://sphinx-doc.org/
+* pycco (documentation) http://fitzgen.github.com/pycco
+* unittest, pytest, nose
 
 ## Planned Features:
 
