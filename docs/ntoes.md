@@ -35,6 +35,7 @@
 * Pieces should be removablew
     * Don't like PhantomJS? Fine, replace the 'test' process with your own automation.
     * Plugin architecture.
+* Easty to use, extensible API
 
 ## Software
 * Sass (Ruby)
@@ -47,7 +48,7 @@
 * Docco (node, documentation)
 
 ## Python Setup
-* cliff (cli)
+* cliff, docopt (cli)
 * pdb++ (debugger)
 * pdbSublimeTextSupport (pdb plugin for sublime)
 * pycmd (code analytics)
@@ -55,41 +56,67 @@
 * pycco (documentation) http://fitzgen.github.com/pycco
 * unittest, pytest, nose (unit testing)
 
-## Planned Features:
+## CLI
 
-### simple http server for quick development
+```bash
+deputy server -s --simple [port]
+deputy server -v --virtual-machine [port]
+deputy watch [watch-subprocess]
+deputy create <boilerplate-id> [dest]
+deputy create (<boilerplate-id> <boilerplate-sub-command>) [file-name]
+deputy build [build-subprocess]
+deputy install <lib-key>
+deputy test [type]
+deputy create documentation
 
-### simple, extensible api (fabric? & or straight up python)
+# git commands, not sure how this wont' be hard coded
+# would like it best if different branching / merging strategies were possible
+deputy tag
+deputy branch (preview | release | feature | hotfix <branch-name>)
+deputy merge (preview | release | feature | hotfix)
 
-### automate
-* server configuration (vagrant & puppet)
-* build tasks
-    * compress css
-    * compress js (require / closure)
-    * compress html
-    * enforce code standards (linters)
-    * image optimization (jpegtran, optipng)
-* git tasks
-    * master, release, preview, feature
-* deployment
-    * capistrano style with rollback
-    * fpm with git / packaging
-* cache busting
-* unit testing
-    * phantom js
-    * mocha
-    * qunit
+# deployment commands
+deputy (deploy | package)
 
-### boilerplate
-* editorconfig
-* jsHint options
-* file structure based boilerplate (like FlashDevelop)
+```
 
-### Front-End Package Management
-* look at bower
-    * not a huge requirement, it's not that hard to manage
+## Plugin Ideas (via, simple, extensible plugin api)
 
-### Random Thoughts
+* simple http server for quick development
+
+* automation
+    * server configuration (vagrant & puppet)
+    * build tasks
+        * compress css (sass, compass)
+        * compress js (require / closure)
+        * compress html (?, closure?)
+        * enforce code standards (linters, jshint, jslint, closure linter)
+        * image optimization (jpegtran, optipng)
+    * git tasks
+        * master, release, preview, feature
+    * deployment
+        * capistrano style with rollback
+        * fpm with git / packaging
+    * cache busting
+    * unit testing
+        * phantom js
+        * mocha
+        * qunit
+    * documentation generation
+
+* boilerplate
+    * editorconfig
+    * jsHint options
+    * file structure based boilerplate (like FlashDevelop)
+    * Easily incorporate, backbone, angular etc
+        * will need methods to generate controllers, models, etc.
+        * adding this functionality should be intuitive and easy
+
+* front-end Package Management
+    * look at bower
+        * not a huge requirement, it's not that hard to manage
+
+## Random Thoughts
 * Checkout Google Closure Tools
 * Is there a way to provide a basic api, w/o providing a default structure?
     * Maybe that is "fabric" itself. 
@@ -98,7 +125,7 @@
     * Plugin's would allow me to write implementation for n-tools but add a nice layer of abstraction. People can build plugins and adapt the system to whatever requirements they need.
     * That could be the 'core' of this thing.
         * Then my implementation is essentially example code that 'selects' a few common tools
-    * check [this](http://eli.thegreenplace.net/2012/08/07/fundamental-concepts-of-plugin-infrastructures/) out.
+    * check [http://eli.thegreenplace.net/2012/08/07/fundamental-concepts-of-plugin-infrastructures/](http://eli.thegreenplace.net/2012/08/07/fundamental-concepts-of-plugin-infrastructures/) out.
 
 ## Plugin System Notes
 
@@ -106,6 +133,7 @@
 1. Discovery
 * Registration
 * Application hooks to which the plugins attach (a.k.a 'mount points')
+    * what kind of application hooks would I need?
 * Exposing application capabilities back to plugins (a.k.a. 'extension api');
 
 #### Discovery
