@@ -23,6 +23,8 @@
     * i find node's syntax requirements cumbersome, and js is just not the most full featured language ever.
         * callback hell
 
+
+
 ## Goal
 * To create a very extensible, non-perscriptive build tool.
     * Custom API should be easy to write / integrate.
@@ -30,7 +32,7 @@
 * Provide basic automation, but leave final solution up to developer
     * Too many frameworks try to solve every conceivable use case
         * Because this is not possible, you have to create a somewhat rigid structure to solve "only a few" kinds of problems.
-* Pieces should be removable
+* Pieces should be removablew
     * Don't like PhantomJS? Fine, replace the 'test' process with your own automation.
     * Plugin architecture.
 
@@ -51,7 +53,7 @@
 * pycmd (code analytics)
 * sphinx (documentation) http://sphinx-doc.org/
 * pycco (documentation) http://fitzgen.github.com/pycco
-* unittest, pytest, nose
+* unittest, pytest, nose (unit testing)
 
 ## Planned Features:
 
