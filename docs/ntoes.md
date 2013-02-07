@@ -55,6 +55,7 @@
 * sphinx (documentation) http://sphinx-doc.org/
 * pycco (documentation) http://fitzgen.github.com/pycco
 * unittest, pytest, nose (unit testing)
+* std logging
 
 ## CLI
 
