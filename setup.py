@@ -8,7 +8,7 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-# Python won’t try to write .pyc or .pyo files on the import of source modules.
+# Python won't try to write .pyc or .pyo files on the import of source modules.
 # see: http://docs.python.org/2/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE
 os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
 
