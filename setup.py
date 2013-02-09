@@ -21,7 +21,7 @@ requires = []
 setup(
     name='deputy',
     version='0.0.0',
-    description='Generate a random roll from a n-number of an n-sided die',
+    description='We don\'t need no stinkin\' badges',
     long_description=open('README.md').read(),
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
