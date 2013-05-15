@@ -1,4 +1,4 @@
-# dep·u·ty
+# Dep·u·ty
 /ˈdepyətē/
 
 #### Noun
