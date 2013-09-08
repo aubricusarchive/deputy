@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os, sys
-from setuptools import setup, find_packages
+from setuptools import setup
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -13,12 +13,13 @@ package_data = {'deputy': ['LICENSE.md', 'README.md']}
 
 requires = [
     'setuptools',
-    'docopt==0.6.1',
-    'stevedore'
+    'docopt==0.6.1'
 ]
 
 entry_points = {
-    'console_scripts': ['deputy = deputy.cli:main']
+    'console_scripts': [
+        'deputy = deputy.cli:main'
+    ],
 }
 
 setup(
@@ -28,7 +29,7 @@ setup(
     description='A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
-    packages=find_packages('deputy'),
+    packages=['deputy'],
     package_data=package_data,
     install_requires=requires,
     entry_points=entry_points,
@@ -43,7 +44,7 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
     ),
-
+    zip_safe=False,
 )
 
 del os.environ['PYTHONDONTWRITEBYTECODE']
