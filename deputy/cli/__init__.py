@@ -18,8 +18,6 @@ from docopt import docopt
 
 
 def main():
-    commands = get_commands()
-    print(commands)
 
     args = docopt(
         __doc__,
@@ -27,13 +25,20 @@ def main():
         options_first=True
     )
 
+    if args['--version']:
+        sys.exit()
+
+    try:
+        commands = get_commands()
+    except:
+        sys.exit("No commands found!")
+
     command = args['<command>']
     command_args = args['<args>']
     command_argv = [command] + command_args
 
     if command in commands:
         command_module = importlib.import_module('depfile.' + command)
-        print(command_module.__doc__)
         command_module.exe(command_argv)
     else:
         print("'{}' is not a registered deputy.py command.\n".format(command))
