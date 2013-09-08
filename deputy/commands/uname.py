@@ -2,6 +2,7 @@
 Usage: deputy uname [options]
 
 options:
+    -x      Do something special!
     -a      Behave as though all of the options -mnrsv were specified.
     -m      print the machine hardware name.
     -n      print the nodename
@@ -16,9 +17,12 @@ import sys
 
 
 def exe(argv):
-    docopt(__doc__, argv)
+    args = docopt(__doc__, argv)
 
-    # Pass argv straight through, example only.
-    sys.exit(call(argv))
+    # Trival, meaningless example. Just testing things out.
+    if args['-x']:
+        sys.exit(call(['uname', '-nmsp']))
+    else:
+        sys.exit(call(argv))
 
 
