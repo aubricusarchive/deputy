@@ -2,7 +2,7 @@
 
 import os
 import sys
-from setuptools import setup
+from setuptools import setup, find_packages
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -10,15 +10,12 @@ if sys.argv[-1] == 'publish':
 
 os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
 
-deputys = [
-    'deputy'
-]
-
-deputy_data = {'deputy': ['LICENSE.md', 'README.md']}
+package_data = {'deputy': ['LICENSE.md', 'README.md']}
 
 requires = [
     'setuptools',
-    'docopt==0.6.1'
+    'docopt==0.6.1',
+    'stevedore'
 ]
 
 entry_points = {
@@ -29,11 +26,11 @@ setup(
     url='http://github.com/aubricus/deputy',
     name='deputy',
     version='0.0.1u',
-    description='Lorem ipsum dolor',
+    description='A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
-    deputys=deputys,
-    deputy_data=deputy_data,
+    packages=find_packages('./deputy'),
+    package_data=package_data,
     install_requires=requires,
     entry_points=entry_points,
     deputy_dir={'deputy': 'deputy'},
