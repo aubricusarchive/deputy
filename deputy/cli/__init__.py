@@ -23,7 +23,7 @@ def main():
 
     args = docopt(
         __doc__,
-        version='v0.0.1',
+        version='v0.0.2',
         options_first=True
     )
 
