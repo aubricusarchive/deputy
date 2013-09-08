@@ -12,6 +12,7 @@ import sys
 import importlib
 
 from docopt import docopt
+from stevedore import driver
 
 
 def main():
@@ -30,8 +31,17 @@ def main():
     command_argv = [command] + command_args
 
     if command in commands:
-        result = importlib.import_module('deputy.commands.' + command)
-        result.exe(command_argv)
+        plugin = driver.DriverManager(
+            namespace='deputy.commands',
+            name = command,
+            invoke_on_load=True
+        )
+
+        plugin.driver.execute(command_argv)
+    else:
+        sys.exit(
+            'Could not find the command "{}", please see deputy --help for more info.'
+                .format(command))
 
 
 if __name__ == "__main__":

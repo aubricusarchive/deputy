@@ -19,5 +19,6 @@
 - TODO: CommandGroup
         - Basically an sub-entry point that executes commands.
 - TODO: Create command decorator
+- TODO: Build dynamic deputy help string for awesome help!
 
 
