@@ -1,21 +1,23 @@
 # TODO
 
-## Develop v0.0.1
+[Docopt Git Example]: https://github.com/docopt/docopt/blob/master/examples/git/git.py
+[Stevedore]: http://stevedore.readthedocs.org/en/latest/index.html
 
-Goals:
+## v0.0.1
 
-- Work out command-line aggregation through docopt
-- Make adding "tasks" easy; like in fabric but with more suppor for complete cli:
-    - options
-    - commands
-    - command groups
-- Keep things minimal; even so much as just passing on commands to an assigned module.
+- ~~TODO: Create commandline with deputy as entrypoint.~~
+- ~~TODO: Create basic sub-command example.~~
+    - ~~[Docopt Git Example]~~
 
-Plugins:
 
-- Stevedore? <http://stevedore.readthedocs.org/en/latest/>
-- Discover extensions?
-- Compile commands?
-    - Maybe, compile sub commands from plugins.
-    - See: <https://github.com/docopt/docopt/tree/master/examples/git>
-    - The only thing we need to generate is the top level help string.
+## Thoughts
+- TODO: Make deputy extendable!
+    - [Stevedore]?
+    - Add plugin discovery
+- TODO: Create Command
+    - A command to execute.
+- TODO: CommandGroup
+        - Basically an sub-entry point that executes commands.
+- TODO: Create command decorator
+
+

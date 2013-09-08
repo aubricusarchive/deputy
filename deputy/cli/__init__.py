@@ -16,6 +16,7 @@ from docopt import docopt
 
 def main():
     # TODO: Hardcoded - Make this dynaic
+    # This will probably be the plugin register / discovery step.
     commands = ['uname']
 
     args = docopt(

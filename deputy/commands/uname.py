@@ -2,7 +2,7 @@
 Usage: deputy uname [options]
 
 options:
-    -x      Do something special!
+    -x      Do something custom!
     -a      Behave as though all of the options -mnrsv were specified.
     -m      print the machine hardware name.
     -n      print the nodename
@@ -19,7 +19,11 @@ import sys
 def exe(argv):
     args = docopt(__doc__, argv)
 
-    # Trival, meaningless example. Just testing things out.
+    # Trivial example:
+    # -x is NOT a standard uname option.
+    #
+    # If: -x is set do custom action.
+    # Else: pass argv through.
     if args['-x']:
         sys.exit(call(['uname', '-nmsp']))
     else:
