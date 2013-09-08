@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import os
-import sys
+import os, sys
 from setuptools import setup, find_packages
 
 if sys.argv[-1] == 'publish':
@@ -29,11 +28,11 @@ setup(
     description='A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
-    packages=find_packages('./deputy'),
+    packages=find_packages('deputy'),
     package_data=package_data,
     install_requires=requires,
     entry_points=entry_points,
-    deputy_dir={'deputy': 'deputy'},
+    package_dir={'deputy': 'deputy'},
     long_description=open('README.rst').read(),
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',

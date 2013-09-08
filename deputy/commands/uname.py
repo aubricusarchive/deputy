@@ -1,6 +1,7 @@
-"""usage: deputy uname [options]
+"""
+Usage: deputy uname [options]
 
-    Options:
+options:
     -a      Behave as though all of the options -mnrsv were specified.
     -m      print the machine hardware name.
     -n      print the nodename
@@ -15,18 +16,9 @@ import sys
 
 
 def exe(argv):
-    args = docopt(
-        __doc__,
-        argv
-    )
+    docopt(__doc__, argv)
 
-    print('Argument Vector: ')
-    print(argv)
-
-    print('Command Arguments: ')
-    print(args)
-
-    print('Calling uname: ')
+    # Pass argv straight through, example only.
     sys.exit(call(argv))
 
 
