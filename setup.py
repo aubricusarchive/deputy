@@ -25,7 +25,7 @@ entry_points = {
 setup(
     url='http://github.com/aubricus/deputy',
     name='deputy',
-    version='0.0.3u',
+    version='0.0.4u',
     description='A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',

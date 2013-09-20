@@ -15,57 +15,44 @@ from __future__ import print_function
 import sys
 import importlib
 import os
-import subprocess
+# import subprocess
 
 from docopt import docopt
 
 
 def main():
     args = docopt(
-        __doc__, version='v0.0.3', help=False, options_first=True
+        __doc__, version='v0.0.4', help=False, options_first=True
     )
 
     if args['--help']:
-        print_help()
+        sys.exit(print_help())
 
     if args['--list']:
-        list_commands()
+        print('')
+        sys.exit(print_command_list())
 
     if args['<command>']:
         command_name = args['<command>']
         command_argv = [command_name] + args['<args>']
 
-        execute_command(command_name, command_argv)
+        sys.exit(execute_command(command_name, command_argv))
+
 
 # Actions
+
+
 def print_help():
     print(__doc__)
-
-    # TODO: See, todo @ list_commands
-    subprocess.call(['deputy', '-l'])
-    sys.exit()
+    print_command_list()
 
 
-def list_commands():
-    help_string_format = '{command_name}:\t{doc}'
-    help_strings = []
-
-    for i in scan_depfile():
-        module = import_command(i)
-        help_string = help_string_format.format(
-            command_name=i,
-            doc=module.run.__doc__
-        )
-
-        help_strings.append(help_string)
-
-    # TODO: Revisit, might be better to return something from this function.
-    sys.exit('\nAvailable commands:\n\n' + '\n'.join(help_strings) + '\n')
+def print_command_list():
+    commands = list_available_commands()
+    print('Available commands:\n\n' + '\n'.join(commands) + '\n')
 
 
 def execute_command(command_name, command_argv):
-    # command_names = scan_depfile();
-
     module = import_command(command_name)
     module.run(command_argv)
 
@@ -89,16 +76,30 @@ def import_command(command_name):
         module = importlib.import_module('depfile.' + command_name)
 
     except ImportError:
-        print('\nThere was a problem executing {}.\n'.format(command_name))
-        subprocess.call(['deputy', '-h'])
-        subprocess.call(['deputy', '-l'])
-        sys.exit()
+        print('\nThere was a problem executing {}.'.format(command_name))
+        sys.exit(print_help())
 
     return module
 
 
+def list_available_commands():
+    command_string = '{command_name}:\t{doc}'
+    command_strings = []
+
+    for i in scan_depfile():
+        module = import_command(i)
+        help_string = command_string.format(
+            command_name=i,
+            doc=module.run.__doc__
+        )
+
+        command_strings.append(help_string)
+
+    return command_strings
+
+
 def scan_depfile():
-    excludes = ['.DS_Store']
+    excludes = ['.DS_Store', '__init__.py']
 
     cwd = os.getcwd()
 
@@ -108,12 +109,13 @@ def scan_depfile():
 
     try:
         os.listdir(commands_dir)
+
     except OSError:
         sys.exit('No depfile found in ' + cwd)
 
     for i in os.listdir(commands_dir):
-        # TODO: Cleanup, dirty
-        if(i.endswith('.pyc') or i == "__init__.py" or i in excludes):
+
+        if(i.endswith('.pyc') or i in excludes):
             continue
 
         commands.append(i.strip('.py'))
