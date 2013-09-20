@@ -4,7 +4,7 @@ Usage: deputy [-v | --version]
        deputy [-l | --list]
        deputy <command> [<args>...]
 
-options:
+Options:
     -h, --help           print deputy help message
     -v, --version        print deputy version
     -l, --list           print available deputy commands
@@ -21,10 +21,12 @@ from docopt import docopt
 
 
 def main():
-
     args = docopt(
-        __doc__, version='v0.0.3', options_first=True
+        __doc__, version='v0.0.3', help=False, options_first=True
     )
+
+    if args['--help']:
+        print_help()
 
     if args['--list']:
         list_commands()
@@ -36,6 +38,13 @@ def main():
         execute_command(command_name, command_argv)
 
 # Actions
+def print_help():
+    print(__doc__)
+
+    # TODO: See, todo @ list_commands
+    subprocess.call(['deputy', '-l'])
+    sys.exit()
+
 
 def list_commands():
     help_string_format = '{command_name}:\t{doc}'
@@ -50,7 +59,9 @@ def list_commands():
 
         help_strings.append(help_string)
 
-    sys.exit('\nAvailable Commands:\n\n' + '\n'.join(help_strings) + '\n')
+    # TODO: Revisit, might be better to return something from this function.
+    sys.exit('\nAvailable commands:\n\n' + '\n'.join(help_strings) + '\n')
+
 
 def execute_command(command_name, command_argv):
     # command_names = scan_depfile();
@@ -58,12 +69,15 @@ def execute_command(command_name, command_argv):
     module = import_command(command_name)
     module.run(command_argv)
 
+
 # Helpers
+
 
 def update_sys_path(cwd):
     # Add current working directory to PATH
     if cwd not in sys.path:
         sys.path.insert(0, cwd)
+
 
 def import_command(command_name):
     cwd = os.getcwd()
@@ -81,6 +95,7 @@ def import_command(command_name):
         sys.exit()
 
     return module
+
 
 def scan_depfile():
     excludes = ['.DS_Store']
@@ -104,6 +119,9 @@ def scan_depfile():
         commands.append(i.strip('.py'))
 
     return commands
+
+
+# Main sys call
 
 if __name__ == "__main__":
     sys.exit(main())
