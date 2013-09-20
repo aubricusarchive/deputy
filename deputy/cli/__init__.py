@@ -1,13 +1,16 @@
 """
 Usage: deputy [-v | --version]
-       deputy [--help]
+       deputy [-h | --help]
+       deputy [-l | --list]
        deputy <command> [<args>...]
 
 options:
     -h, --help           print deputy help message
     -v, --version        print deputy version
-
+    -l, --list           print available deputy commands
 """
+
+from __future__ import print_function
 
 import sys
 import importlib
@@ -20,47 +23,87 @@ from docopt import docopt
 def main():
 
     args = docopt(
-        __doc__,
-        version='v0.0.2',
-        options_first=True
+        __doc__, version='v0.0.3', options_first=True
     )
 
-    if args['--version']:
-        sys.exit()
+    if args['--list']:
+        list_commands()
 
-    try:
-        commands = get_commands()
-    except:
-        sys.exit("No commands found!")
+    if args['<command>']:
+        command_name = args['<command>']
+        command_argv = [command_name] + args['<args>']
 
-    command = args['<command>']
-    command_args = args['<args>']
-    command_argv = [command] + command_args
+        execute_command(command_name, command_argv)
 
-    if command in commands:
-        command_module = importlib.import_module('depfile.' + command)
-        command_module.exe(command_argv)
-    else:
-        print("'{}' is not a registered deputy.py command.\n".format(command))
-        sys.exit(subprocess.call(['deputy', '--help']))
+# Actions
 
+def list_commands():
+    help_string_format = '{command_name}:\t{doc}'
+    help_strings = []
 
-def get_commands():
-    cwd = os.getcwd()
-    plugin_dir = cwd + '/depfile'
-    plugins = []
+    for i in scan_depfile():
+        module = import_command(i)
+        help_string = help_string_format.format(
+            command_name=i,
+            doc=module.run.__doc__
+        )
 
+        help_strings.append(help_string)
+
+    sys.exit('\nAvailable Commands:\n\n' + '\n'.join(help_strings) + '\n')
+
+def execute_command(command_name, command_argv):
+    # command_names = scan_depfile();
+
+    module = import_command(command_name)
+    module.run(command_argv)
+
+# Helpers
+
+def update_sys_path(cwd):
     # Add current working directory to PATH
     if cwd not in sys.path:
         sys.path.insert(0, cwd)
 
-    for i in os.listdir(plugin_dir):
-        if(i.endswith('.pyc') or i == "__init__.py"):
+def import_command(command_name):
+    cwd = os.getcwd()
+    module = None
+
+    update_sys_path(cwd)
+
+    try:
+        module = importlib.import_module('depfile.' + command_name)
+
+    except ImportError:
+        print('\nThere was a problem executing {}.\n'.format(command_name))
+        subprocess.call(['deputy', '-h'])
+        subprocess.call(['deputy', '-l'])
+        sys.exit()
+
+    return module
+
+def scan_depfile():
+    excludes = ['.DS_Store']
+
+    cwd = os.getcwd()
+
+    # TODO: Hardcoded, make configurable
+    commands_dir = cwd + '/depfile'
+    commands = []
+
+    try:
+        os.listdir(commands_dir)
+    except OSError:
+        sys.exit('No depfile found in ' + cwd)
+
+    for i in os.listdir(commands_dir):
+        # TODO: Cleanup, dirty
+        if(i.endswith('.pyc') or i == "__init__.py" or i in excludes):
             continue
 
-        plugins.append(i.strip('.py'))
+        commands.append(i.strip('.py'))
 
-    return plugins
+    return commands
 
 if __name__ == "__main__":
     sys.exit(main())

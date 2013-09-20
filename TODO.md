@@ -6,13 +6,16 @@
 
 - ~~TODO: Create commandline with deputy as entrypoint.~~
 - ~~TODO: Create basic sub-command example.~~
-    - ~~[Docopt Git Example]~~
+    - ~~Reference: [Docopt Git Example]~~
 - TOOD: Add command discovery
 - TODO: Add dynamic help string
+- TODO: Write better command import.
+- TODO: Write fab --list equivelent
 
 
 ## Thoughts
 - TODO: Create command decorator?
 - TODO: Command groups?
+- TODO: Jinja based "deputy" help string?
 
 
