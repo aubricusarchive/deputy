@@ -20,6 +20,7 @@ entry_points = {
     'console_scripts': [
         'deputy = deputy.cli:main'
     ],
+    'deputy.filecabinet': []
 }
 
 setup(
