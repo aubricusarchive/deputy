@@ -9,6 +9,8 @@ import unittest
 
 from unittest import TestCase
 
+from deputy import filecabinet
+
 sys.path.insert(0, os.path.abspath('../'))
 
 
@@ -23,58 +25,53 @@ def __run__(testcase, verbosity=2):
 class DeputyTestCase(TestCase):
     """Deputy unittest test suite."""
 
-    def test_desk_search(self):
-        """Test searching the deputy's desk."""
-        pass
+    def test_filecabinet_collect(self):
+        """Collect casefiles (entry points) from the file cabinet.
 
-    def test_desk_is_empty(self):
-        """Test searching an empty desk."""
-        pass
+        This test requires deputy_lib is installed.
+        """
 
-    def test_filecabinet_search(self):
-        """Test searching the deputy's file cabinet."""
-        pass
+        MOCK_CASEFILE_NAME = 'bang'
+        casefiles = filecabinet.collect()
 
-    def test_filecabinet_is_empty(self):
-        """Test searching an empty file cabinet."""
-        pass
+        try:
+            casefile = next(casefiles)
 
-    def test_docket_collect_desk_casefiles(self):
-        """Test collect a docket only from the desk."""
-        pass
+        except StopIteration:
+            self.fail('filecabinet.collect() returned no items!')
 
-    def test_docket_collect_filecabinet_casefiles(self):
-        """Test collect a docket only from the file cabinet."""
-        pass
+        self.assertEqual(
+            casefile.name,
+            MOCK_CASEFILE_NAME,
+            msg='Casefile name should equal "bang".'
+        )
 
-    def test_docket_collect_casefiles(self):
-        """Test collect a docket."""
-        pass
+    def test_filecabinet_search_matching(self):
+        """Verify filecabinet.search properly imports \
+        a known casefile module.
 
-    def test_docket_list_tasks(self):
-        """Test listing docket tasks."""
-        pass
+        This test requires deputy_lib is installed.
+        """
 
-    def test_docket_get_task(self):
-        """Test getting a task from the docket."""
-        pass
+        MOCK_CASEFILE_NAME = 'bang'
 
-    def test_deputy_task(self):
-        """Test executing a deputy task."""
-        pass
+        try:
+            search_result = filecabinet.search(MOCK_CASEFILE_NAME)
 
-    def test_deputy_unknown_task(self):
-        """Test executing an unknown task."""
-        pass
+        except NameError:
+            self.fail('filecabinet.search() returned no results!')
 
-    def test_deputy_help(self):
-        """Test asking deputy for help."""
-        pass
+        self.assertTrue(
+            search_result.__file__.endswith(MOCK_CASEFILE_NAME + '.pyc'),
+            msg='Casefile module was not the correct module!'
+        )
 
-    def test_deputy_task_help(self):
-        """Test asking deputy for help on a task."""
-        pass
+    def test_filecabinet_serach_name_errors(self):
+        """Verify filecabinet.search rasises an error \
+        with unknown casefile."""
 
+        with self.assertRaises(NameError):
+            filecabinet.search('unknown-casefile')
 
     # Helpers
 
