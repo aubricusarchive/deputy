@@ -20,13 +20,16 @@ entry_points = {
     'console_scripts': [
         'deputy = deputy.cli:main'
     ],
+    'deputy.filecabinet': []
 }
+
+description = 'A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.'
 
 setup(
     url='http://github.com/aubricus/deputy',
     name='deputy',
     version='0.0.4u',
-    description='A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.',
+    description=description,
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
     packages=['deputy'],
