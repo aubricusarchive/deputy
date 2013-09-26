@@ -1,8 +1,5 @@
 from __future__ import absolute_import
 
-# Debug only
-# import pdb
-
 import os
 import sys
 import unittest
@@ -11,6 +8,7 @@ from unittest import TestCase
 
 from deputy import filecabinet
 from deputy import desktop
+from deputy import docket
 
 sys.path.insert(0, os.path.abspath('../'))
 
@@ -29,6 +27,9 @@ class DeputyTestCase(TestCase):
 
 # Filecabinet Tests
 # ============================================================================
+
+    ## TODOs:
+    # - Finish report test
 
     def test_filecabinet_collect(self):
         """Collect casefiles (entry points) from the file cabinet.
@@ -68,6 +69,7 @@ class DeputyTestCase(TestCase):
 
         # Ensure the proper file was loaded.
         # TODO: Revisit - Maybe not the best test ever.
+        # - __name__ instead?
         self.assertTrue(
             search_result.__file__.endswith(MOCK_CASEFILE_NAME + '.pyc'),
             msg='Casefile module was not the correct module!'
@@ -80,12 +82,17 @@ class DeputyTestCase(TestCase):
         with self.assertRaises(NameError):
             filecabinet.search('unknown-casefile')
 
+    def test_filecabinet_report(self):
+        """Verify report returns a list of known case files."""
+        filecabinet.report()
 
 # Desk tests
 # ============================================================================
 
     # TODOs:
     # - Write test to verify collect glob filter is working correctly.
+    # - Write test to verify missing casefile dir is handled correctly.
+    # - Finish report test
 
     def test_desktop_collect(self):
         """Collect case files (modules) from the desk."""
@@ -108,6 +115,7 @@ class DeputyTestCase(TestCase):
 
         # Ensure the proper file was loaded.
         # TODO: Revisit - Maybe not the best test ever.
+        # - __name__ instead?
         self.assertTrue(
             search_result.__file__.endswith(MOCK_CASEFILE_NAME + '.pyc'),
             msg='Casefile module was not the correct module!'
@@ -120,6 +128,25 @@ class DeputyTestCase(TestCase):
         with self.assertRaises(NameError):
             desktop.search('unknown-casefile')
 
+    def test_desktop_report(self):
+        """Verify report returns a list of known case files."""
+        CASEFILES_DIR = self.get_mocks_dir() + '/casefiles'
+        desktop.report(CASEFILES_DIR)
+
+
+# Docket tests
+# ============================================================================
+
+    # TODOs:
+    # - Finish report tests
+    # - Finish search tests
+
+    def test_docket_search(self):
+        pass
+
+    def test_docket_report(self):
+        CASEFILES_DIR = self.get_mocks_dir() + '/casefiles'
+        casefile_list = docket.report(CASEFILES_DIR)
 
 # Helpers
 # ============================================================================
