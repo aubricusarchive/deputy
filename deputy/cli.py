@@ -15,8 +15,10 @@ from __future__ import print_function
 import sys
 
 from docopt import docopt
-
 from deputy import docket
+from deputy.filecabinets import filesystem
+from deputy.filecabinets import entrypoints
+
 
 # Docopt
 # ============================================================================
@@ -65,7 +67,7 @@ def print_available_casefiles():
 
 def run_casefile(casefile_name, casefile_argv):
     try:
-        casefile = docket.search(casefile_name)
+        casefile = docket.search(casefile_name, filecabinets=(filesystem, entrypoints))
     except NameError:
         # TODO: Enhance - Print nice message.
         raise
