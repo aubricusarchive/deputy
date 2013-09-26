@@ -13,17 +13,18 @@ def search(casefile_name):
     """
 
     casefiles = collect()
-    matching_result = None
+    matched_result = None
 
-    for casefile in casefiles:
-        if casefile_name == casefile.name:
-            matching_result = casefile
+    for raw_casefile in casefiles:
+        if casefile_name == raw_casefile.name:
+            matched_result = raw_casefile
             break
 
-    if matching_result is not None:
-        return matching_result.load()
+    if matched_result is not None:
+        return matched_result.load()
 
     else:
+        # TODO: Revisit - Raise cutom error here.
         raise NameError('Could not find matching name in file cabinet!')
 
 # Helpers
