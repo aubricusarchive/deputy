@@ -23,7 +23,7 @@ from deputy import docket
 
 def main():
     args = docopt(
-        __doc__, version='v0.0.4', help=False, options_first=True
+        __doc__, version='v0.0.5', help=False, options_first=True
     )
 
     if args['--help']:

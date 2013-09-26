@@ -28,7 +28,7 @@ description = 'A person whose immediate superior is a senior figure within an or
 setup(
     url='http://github.com/aubricus/deputy',
     name='deputy',
-    version='0.0.4u',
+    version='0.0.5u',
     description=description,
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
