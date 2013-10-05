@@ -10,3 +10,12 @@ def search(casefile_name, filecabinets=()):
 
     # if we get here, we found 0 matches
     raise NameError('Could not find any matching casefiles in the docket!')
+
+
+def report(filecabinets=()):
+    """Collect all available case files."""
+
+    casefile_list = [cabinet.report() for cabinet in filecabinets]
+    return casefile_list
+
+    # return filecabinet.report() + desktop.report(casefiles_dir)

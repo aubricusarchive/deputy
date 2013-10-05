@@ -13,8 +13,10 @@ Options:
 from __future__ import print_function
 
 import sys
+import os
 
 from docopt import docopt
+
 from deputy import docket
 from deputy.filecabinets import filesystem
 from deputy.filecabinets import entrypoints
@@ -48,13 +50,14 @@ def main():
 
 def print_help():
     print(__doc__)
-    print_available_casefiles()
+    print_available_casefiles(filecabinets=(entrypoints, filesystem))
 
 
-def print_available_casefiles():
-    available_header = 'Available casefiles:\n'
+def print_available_casefiles(filecabinets):
+    available_header          = 'Available casefiles:\n'
     available_casefile_format = '{name}\t{doc}'
-    casefiles_list = docket.report()
+
+    casefiles_list = docket.report(filecabinets=filecabinets)
 
     print(available_header)
 
@@ -74,6 +77,11 @@ def run_casefile(casefile_name, casefile_argv):
     else:
         casefile.run(casefile_argv)
 
+# Helpers
+# ============================================================================
+
+def get_casefile_dir():
+    return os.getcwd() + '/' + 'casefiles'
 
 # Main sys call
 # ============================================================================

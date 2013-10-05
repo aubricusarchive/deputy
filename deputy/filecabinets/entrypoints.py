@@ -5,21 +5,12 @@ check the file cabinet for additional case files defined by others.
 
 from pkg_resources import iter_entry_points
 
-# TODOs:
-# - Refactor - Filecabinet and desktop have a lot of shared code with minor
-# variations to handle the difference between loading an entry point
-# and a raw python module. Possible to trim down?
-
-
-ENTRY_POINT_NAMESPACE = 'deputy.filecabinet'
-
-
-def search(casefile_name):
+def search(casefile_name, entry_point_namespace):
     """Search the deputy's file cabinet for case files, \
     returns python module.
     """
 
-    raw_casefiles = collect()
+    raw_casefiles = collect(entry_point_namespace)
     matched_result = None
 
     for raw_casefile in raw_casefiles:
@@ -63,8 +54,8 @@ def import_raw_casefile(raw_casefile):
     except ImportError:
         raise
 
-def collect():
+def collect(entry_point_namespace='deputy.filecabinet'):
     """Collect case files (entry points) from the file cabinet."""
 
-    raw_casefiles = iter_entry_points(ENTRY_POINT_NAMESPACE)
+    raw_casefiles = iter_entry_points(entry_point_namespace)
     return raw_casefiles

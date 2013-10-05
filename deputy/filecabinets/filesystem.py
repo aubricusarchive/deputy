@@ -9,21 +9,8 @@ import glob
 import re
 import importlib
 
-# TODOs:
 
-# - Refactor - Filecabinet and desktop have a lot of shared code with minor
-# variations to handle the difference between loading an entry point
-# and a raw python module. Possible to trim down?
-
-# - Error Handling - Need to add better error handling for
-# missing casefile dir.
-
-
-CASEFILES_DIR_NAME = 'casefiles'
-CASEFILES_DIR = os.getcwd() + '/' + CASEFILES_DIR_NAME
-
-
-def search(casefile_name, casefiles_dir=CASEFILES_DIR):
+def search(casefile_name, casefiles_dir):
     raw_casefiles = collect(casefiles_dir)
     matched_result = None
 
@@ -39,7 +26,7 @@ def search(casefile_name, casefiles_dir=CASEFILES_DIR):
         raise NameError('Could not find matching name on the desktop!')
 
 
-def report(casefiles_dir=CASEFILES_DIR):
+def report(casefiles_dir):
     """Report available casefiles."""
 
     raw_casefiles = collect(casefiles_dir)
@@ -62,9 +49,8 @@ def report(casefiles_dir=CASEFILES_DIR):
 # Helpers
 # ============================================================================
 
-def collect(casefiles_dir=CASEFILES_DIR):
+def collect(casefiles_dir):
     """Collect case files (entry points) from the file cabinet."""
-
 
     casefiles = []
 
