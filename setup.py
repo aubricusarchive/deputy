@@ -33,7 +33,7 @@ requires = [
 ]
 entry_points = {
     'console_scripts': [
-        'deputy = deputy.cli:main'
+        'dep = deputy.cli:main'
     ],
     'deputy.casefiles': []
 }
