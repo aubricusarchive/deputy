@@ -18,6 +18,7 @@ from docopt import docopt
 
 from deputy import config
 from deputy import loaders
+from deputy import utils
 from deputy.exceptions import CasefileMissingError
 from deputy.exceptions import CasefileConflictError
 
@@ -25,7 +26,7 @@ from deputy.exceptions import CasefileConflictError
 
 def main():
     args = docopt(
-        __doc__, version='v0.0.5', help=False, options_first=True
+        __doc__, version=utils.get_version(), help=False, options_first=True
     )
 
     if args['--help']:

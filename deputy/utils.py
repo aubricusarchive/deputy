@@ -16,3 +16,7 @@ def glob_casefiles(target_dir):
     ]
 
     return file_names
+
+
+def get_version():
+    return 'v0.0.6u'

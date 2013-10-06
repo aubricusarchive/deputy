@@ -3,6 +3,8 @@
 import os, sys
 from setuptools import setup
 
+from deputy import utils as deputy_utils
+
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
@@ -28,7 +30,7 @@ description = 'A person whose immediate superior is a senior figure within an or
 setup(
     url='http://github.com/aubricus/deputy',
     name='deputy',
-    version='0.0.5u',
+    version=deputy_utils.get_version(),
     description=description,
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',

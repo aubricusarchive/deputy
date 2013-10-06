@@ -1,8 +1,6 @@
-=====
+======
 deputy
-=====
-
-Lorem Ipsum
+======
 
 Links
 -----
