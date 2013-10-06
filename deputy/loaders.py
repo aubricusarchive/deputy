@@ -40,3 +40,10 @@ def get_file_system_loader(settings):
         casefile_type='file_system',
         search_location=settings['casefiles_dir']
     )
+
+
+def get_loaders(settings):
+    return  (
+        get_entry_point_loader(settings),
+        get_file_system_loader(settings)
+    )

@@ -3,8 +3,9 @@ from __future__ import absolute_import
 import os
 import sys
 import unittest
-from warnings import warn
+import itertools
 
+from warnings import warn
 from unittest import TestCase
 
 from deputy import loaders
@@ -27,7 +28,6 @@ class DeputyTestCase(TestCase):
 
     def setUp(self):
         self.settings = config.load_config()
-
 
     def test_load_default_config(self):
         """Test that the default config loads properly."""
@@ -114,6 +114,24 @@ class DeputyTestCase(TestCase):
         expected_casefile_names = sorted(['kelly'])
 
         self.assertEqual(casefile_names, expected_casefile_names)
+
+    def test_get_all_casfiles(self):
+        """Test get all casefiles."""
+
+        self.settings['casefiles_dir'] = self.get_mocks_dir() + '/casefiles'
+
+        ldrs                    = loaders.get_loaders(self.settings)
+        casefiles               = itertools.chain(*[ldr() for ldr in ldrs])
+        casefile_names          = sorted([casefile.name() for casefile in casefiles])
+        expected_casefile_names = sorted(['bang', 'bash', 'pop', 'kelly', 'uname'])
+        depends_on              = 'deputy_lib'
+
+        try:
+            __import__(depends_on)
+            self.assertEqual(casefile_names, expected_casefile_names)
+
+        except ImportError:
+            warn('Skipping test, deputy_lib is not available.')
 
 # Helpers
 
