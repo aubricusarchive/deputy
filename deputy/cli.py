@@ -33,7 +33,7 @@ def main():
         sys.exit(print_help())
 
     if args['--list']:
-        print(args)
+        sys.exit(print_available_casefiles())
 
     if args['<command>']:
         casefile_name = args['<command>']
