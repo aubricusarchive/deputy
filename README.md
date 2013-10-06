@@ -9,4 +9,4 @@ A person whose immediate superior is a senior figure within an organization and 
 representative - substitute - delegate - proxy - agent
 
 #### Version
-v0.0.6
+v0.0.7
