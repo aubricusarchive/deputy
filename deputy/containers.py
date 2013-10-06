@@ -2,11 +2,11 @@ import sys
 import importlib
 
 
-class EntryPointCasefile(object):
+class EntryPointContainer(object):
     """A casefile derived from an entry point."""
 
     def __init__(self, raw_casefile):
-        super(EntryPointCasefile, self).__init__()
+        super(EntryPointContainer, self).__init__()
         self.raw_casefile = raw_casefile
 
     def name(self):
@@ -27,11 +27,11 @@ class EntryPointCasefile(object):
             raise
 
 
-class FileSystemCasefile(object):
+class FileSystemContainer(object):
     """A casefile derived from a local file."""
 
     def __init__(self, raw_casefile):
-        super(FileSystemCasefile, self).__init__()
+        super(FileSystemContainer, self).__init__()
         self.raw_casefile = raw_casefile
 
     def name(self):
@@ -72,9 +72,9 @@ class FileSystemCasefile(object):
 
 def get_container_for_type(casefile_type):
     if(casefile_type == 'entry_point'):
-        return EntryPointCasefile
+        return EntryPointContainer
 
     if(casefile_type == 'file_system'):
-        return FileSystemCasefile
+        return FileSystemContainer
 
     raise NameError('unsupported casefile type')
