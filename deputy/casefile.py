@@ -45,9 +45,9 @@ class FileSystemCasefile(object):
 
     def load(self):
         """Import the casefile."""
-        raw_components = self.get_file_path_components(self.raw_casefile)
-        path           = raw_components['path']
-        name           = raw_components['name']
+        path_components = self.get_file_path_components(self.raw_casefile)
+        path            = path_components['path']
+        name            = path_components['name']
 
         # update sys path
         if path not in sys.path:
