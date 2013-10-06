@@ -20,7 +20,7 @@ entry_points = {
     'console_scripts': [
         'deputy = deputy.cli:main'
     ],
-    'deputy.filecabinet': []
+    'deputy.casefiles': []
 }
 
 description = 'A person whose immediate superior is a senior figure within an organization and who is empowered to act as a substitute for this superior.'
