@@ -14,4 +14,3 @@ class CasefileMissingError(DeputyError):
 class CasefileConflictError(DeputyError):
     def __init__(self):
         super(CasefileConflictError, self).__init__()
-

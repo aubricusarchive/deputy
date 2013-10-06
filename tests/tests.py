@@ -96,9 +96,9 @@ class DeputyTestCase(TestCase):
 
         self.settings['casefiles_dir'] = self.get_mocks_dir() + '/casefiles'
 
-        load_casefiles            = loaders.get_file_system_loader(self.settings)
-        casefiles                 = load_casefiles()
-        casefile_names            = sorted([x.name() for x in casefiles])
+        load_casefiles          = loaders.get_file_system_loader(self.settings)
+        casefiles               = load_casefiles()
+        casefile_names          = sorted([x.name() for x in casefiles])
         expected_casefile_names = sorted(['uname', 'kelly'])
 
         self.assertEqual(casefile_names, expected_casefile_names)

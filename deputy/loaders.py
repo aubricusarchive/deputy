@@ -1,49 +1,34 @@
 from functools import partial
-from pkg_resources import iter_entry_points
 
-from deputy import utils
-from deputy.casefile import EntryPointCasefile
-from deputy.casefile import FileSystemCasefile
+from deputy import services
+from deputy import containers
 
 
-def load_casefile(casefile_type, search_location, casefile_name='*'):
-    casefile_list = []
+def loader(casefile_type, search_location, casefile_name='*'):
+    container_list    = []
+    CasefileContainer = containers.get_container_for_type(casefile_type)
+    CasefileService   = services.get_service_for_type(casefile_type)
 
-    if casefile_type == 'entry_point':
-        eps = iter_entry_points(search_location)
+    service      = CasefileService()
+    iter_results = service.iter_casefiles(search_location)
 
-        for ep in eps:
-            casefile = EntryPointCasefile(ep)
+    for result in iter_results:
+        container = CasefileContainer(result)
 
-            if(casefile_name == '*'):
-                casefile_list.append(casefile)
-                continue
+        if(casefile_name == '*'):
+            container_list.append(container)
+            continue
 
-            elif(casefile_name == casefile.name()):
-                casefile_list.append(casefile)
-                break
+        elif(casefile_name == container.name()):
+            container_list.append(container)
+            break
 
-    if casefile_type == 'filesystem':
-        files = utils.glob_casefiles(search_location)
-
-        for f in files:
-            casefile = FileSystemCasefile(f)
-
-            if(casefile_name == '*'):
-                casefile_list.append(casefile)
-                continue
-
-            elif(casefile_name == casefile.name()):
-                casefile_list.append(casefile)
-                break
-
-
-    return casefile_list
+    return container_list
 
 
 def get_entry_point_loader(settings):
     return partial(
-        load_casefile,
+        loader,
         casefile_type='entry_point',
         search_location=settings['casefiles_entry_point']
     )
@@ -51,13 +36,7 @@ def get_entry_point_loader(settings):
 
 def get_file_system_loader(settings):
     return partial(
-        load_casefile,
-        casefile_type='filesystem',
+        loader,
+        casefile_type='file_system',
         search_location=settings['casefiles_dir']
     )
-
-
-def get_custom_loader(*args, **kwargs):
-    return partial(load_casefile, *args, **kwargs)
-
-

@@ -69,3 +69,12 @@ class FileSystemCasefile(object):
             'extension': extension
         }
 
+
+def get_container_for_type(casefile_type):
+    if(casefile_type == 'entry_point'):
+        return EntryPointCasefile
+
+    if(casefile_type == 'file_system'):
+        return FileSystemCasefile
+
+    raise NameError('unsupported casefile type')
