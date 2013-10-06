@@ -1,5 +1,6 @@
 """Exceptions for deputy."""
 
+
 class DeputyError(Exception):
     def __init__(self, msg="Message not set."):
          self.msg = msg

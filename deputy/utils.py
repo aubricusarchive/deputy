@@ -1,6 +1,7 @@
 import glob
 import re
 
+
 def glob_casefiles(target_dir):
     """Glob casefile filenames for target_dir."""
 

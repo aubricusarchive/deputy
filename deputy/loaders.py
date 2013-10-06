@@ -40,6 +40,7 @@ def load_casefile(casefile_type, search_location, casefile_name='*'):
 
     return casefile_list
 
+
 def get_entry_point_loader(settings):
     return partial(
         load_casefile,

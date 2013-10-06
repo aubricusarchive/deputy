@@ -1,6 +1,7 @@
 import sys
 import importlib
 
+
 class EntryPointCasefile(object):
     """A casefile derived from an entry point."""
 

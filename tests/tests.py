@@ -13,6 +13,7 @@ from deputy import config
 
 sys.path.insert(0, os.path.abspath('../'))
 
+
 def __run__(testcase, verbosity=2):
     loader = unittest.TestLoader()
     suite  = loader.loadTestsFromTestCase(testcase)
